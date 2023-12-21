@@ -1,0 +1,38 @@
+.button {
+  width: 150px;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 25px;
+  padding: 6px 16px;
+  transition: 0.2s ease-in;
+}
+
+.button--add {
+  background-color: #2ea44f;
+}
+
+.button--add:hover {
+  background-color: #237C3C;
+}
+
+.button--see {
+  background-color: #0095ff;
+}
+
+.button--see:hover {
+  background-color: #007DD7;
+}
+
+.button--delete {
+  background-color: #cb2027;
+}
+
+.button--delete:hover {
+  background-color: #AD1B20;
+}
+
