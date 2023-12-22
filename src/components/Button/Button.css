@@ -36,3 +36,11 @@
   background-color: #AD1B20;
 }
 
+.button--submit {
+  background-color: #0095ff;
+}
+
+.button--submit:hover {
+  background-color: #007DD7;
+}
+

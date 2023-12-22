@@ -1,13 +1,19 @@
-import './Button.css'
+import "./Button.css";
 
 type ButtonProps = {
-  type: "add" | "see" | "delete";
+  type: "add" | "see" | "delete" | "submit";
+  handleClick?: (event?: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-const Button: React.FC<ButtonProps> = ({ type }) => {
+const Button: React.FC<ButtonProps> = ({ type, handleClick }) => {
   const buttonClassName = `button button--${type}`;
+  const buttonType = type === "submit" ? "submit" : "button";
 
-  return <button className={buttonClassName}>{type}</button>;
+  return (
+    <button type={buttonType} className={buttonClassName} onClick={handleClick}>
+      {type}
+    </button>
+  );
 };
 
 export default Button;

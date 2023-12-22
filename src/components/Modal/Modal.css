@@ -1,0 +1,45 @@
+.modal {
+  min-width: 350px;
+  padding: 20px;
+  border: 0;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  position: relative;
+}
+
+.modal::backdrop {
+  background: rgba(0, 0, 0, 60%);
+}
+
+.modal__title {
+  display: block;
+  max-width: 90%;
+  font-size: 20px;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal__input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
