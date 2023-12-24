@@ -1,28 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { PropsWithChildren, useEffect, useRef, useState } from "react";
 import "./Modal.css";
-import Button from "../Button/Button";
 
-type ModalProps = {
+export type BaseModalProps = PropsWithChildren & {
   isOpen: boolean;
   onClose: () => void;
-  words: string;
-  setWords: React.Dispatch<React.SetStateAction<string>>;
-  modalType: "add" | "see" | "delete" | null;
 };
 
-const Modal: React.FC<ModalProps> = ({
-  isOpen,
-  onClose,
-  words,
-  setWords,
-  modalType,
-}) => {
+const Modal: React.FC<BaseModalProps> = ({ isOpen, onClose, children }) => {
   const [isModalOpen, setIsModalOpen] = useState(isOpen);
 
   const modalRef = useRef<HTMLDialogElement | null>(null);
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
-  let modalChidlren = null;
 
   const handleModalClose = () => {
     if (onClose) {
@@ -31,57 +18,6 @@ const Modal: React.FC<ModalProps> = ({
 
     setIsModalOpen(false);
   };
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    handleModalClose();
-  };
-
-  if (isModalOpen) {
-    inputRef.current?.focus();
-  }
-
-  if (modalType === "add") {
-    modalChidlren = (
-      <>
-        <h1 className="modal__title">Add a few words to practice</h1>
-        <form className="modal__form" onSubmit={handleSubmit}>
-          <input
-            className="modal__input"
-            type="text"
-            value={words}
-            onChange={(event) => setWords(event.target.value)}
-            ref={inputRef}
-          />
-          <Button type="submit" />
-        </form>
-      </>
-    );
-  }
-
-  if (modalType === "see") {
-    modalChidlren = (
-      <>
-        <h1 className="modal__title">Here are the words you added</h1>
-        <p> {words}</p>
-      </>
-    );
-  }
-
-  if (modalType === "delete") {
-    modalChidlren = (
-      <>
-        <h1 className="modal__title">Are you sure you want to delete them?</h1>
-        <Button
-          type="delete"
-          handleClick={() => {
-            setWords("");
-            handleModalClose();
-          }}
-        ></Button>
-      </>
-    );
-  }
 
   useEffect(() => {
     const modalElement = modalRef.current;
@@ -106,7 +42,7 @@ const Modal: React.FC<ModalProps> = ({
           />
         </svg>
       </button>
-      {modalChidlren}
+      {children}
     </dialog>
   );
 };

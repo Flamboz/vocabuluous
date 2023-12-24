@@ -1,0 +1,19 @@
+.hangman-wrapper {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.hangman-wrapper__left {
+  width: 40%;
+}
+
+.hangman-wrapper__right {
+  width: 55%;
+}
+
+.hangman-wrapper__left,
+.hangman-wrapper__right {
+  border: 1px solid #000;
+}
