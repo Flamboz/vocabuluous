@@ -11,9 +11,54 @@
 
 .hangman-wrapper__right {
   width: 55%;
+  font-size: 24px;
+  text-align: center;
+}
+
+.hangman-wrapper__right > div {
+  margin: 20px 0;
 }
 
 .hangman-wrapper__left,
 .hangman-wrapper__right {
   border: 1px solid #000;
+}
+
+.guessing-word {
+  font-size: 56px;
+}
+
+.guessing-word__char {
+  padding: 0 10px;
+}
+
+.letters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.letter {
+  width: 50px;
+  line-height: 45px;
+  text-align: center;
+  color: #fff;
+  font-size: 24px;
+  background-color: #6260b8;
+  border: 2px solid #6260b8;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.letter:disabled.correct {
+  border: 2px solid #2ECC71;
+  background-color: #bcfdd7;
+  color: #2ECC71;
+}
+
+.letter:disabled.incorrect {
+  border: 2px solid #C0392B;
+  background-color: #fbb6b6;
+  color: #C0392B;
 }
