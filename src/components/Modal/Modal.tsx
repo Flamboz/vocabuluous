@@ -9,8 +9,6 @@ export type BaseModalProps = PropsWithChildren & {
 const Modal: React.FC<BaseModalProps> = ({ isOpen, onClose, children }) => {
   const modalRef = useRef<HTMLDialogElement | null>(null);
 
-  console.log(isOpen);
-
   const handleModalClose = () => {
     if (onClose) {
       onClose();
