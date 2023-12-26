@@ -1,36 +1,33 @@
-import { PropsWithChildren, useEffect, useRef, useState } from "react";
+import { PropsWithChildren, useEffect, useRef } from "react";
 import "./Modal.css";
 
 export type BaseModalProps = PropsWithChildren & {
   isOpen: boolean;
-  onClose: () => void;
+  onClose?: () => void;
 };
 
 const Modal: React.FC<BaseModalProps> = ({ isOpen, onClose, children }) => {
-  const [isModalOpen, setIsModalOpen] = useState(isOpen);
-
   const modalRef = useRef<HTMLDialogElement | null>(null);
+
+  console.log(isOpen);
 
   const handleModalClose = () => {
     if (onClose) {
       onClose();
     }
-
-    setIsModalOpen(false);
   };
 
   useEffect(() => {
     const modalElement = modalRef.current;
-    setIsModalOpen(isOpen);
 
     if (modalElement) {
-      if (isModalOpen) {
+      if (isOpen) {
         modalElement.showModal();
       } else {
         modalElement.close();
       }
     }
-  }, [isModalOpen, isOpen]);
+  }, [isOpen]);
 
   return (
     <dialog className="modal" ref={modalRef}>
