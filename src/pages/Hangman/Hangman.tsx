@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import "./Hangman.css";
 import Modal from "../../components/Modal/Modal";
+import useGetDefinition from "../../helpers/getDefinition";
+import Button from "../../components/Button/Button";
+import HangmanDrawing from "./HangmanDrawing";
 
 const letters = [
   "A",
@@ -105,19 +108,55 @@ const Hangman = () => {
     }
   }, [guessedLetters, wordToQuess, isGameOver]);
 
+  const definitions = useGetDefinition("chubby", "adjective");
+  const [currentDefinition, setCurrentDefinition] = useState(null);
+  const [currentExample, setCurrentExample] = useState(null);
+  const [showDefinition, setShowDefinition] = useState(false);
+  const [showExample, setShowExample] = useState(false);
+
+  const showDefinitionHandle = () => {
+    if (definitions) {
+      setCurrentDefinition(definitions[0].definition);
+      const example = definitions[0].example.replace("chubby", "______");
+      setCurrentExample(example);
+      setShowDefinition(true);
+    }
+  };
+
+  const showExampleHandle = () => {
+    if (definitions) {
+      setCurrentDefinition(definitions[0].definition);
+      const example = definitions[0].example.replace("chubby", "______");
+      setCurrentExample(example);
+      setShowExample(true);
+    }
+  };
+
   return (
     <>
       <div className="hangman-wrapper">
         <div className="hangman-wrapper__left">
-          <div className="hangman-visual">hangman game</div>
+          <div className="hangman-drawing">
+            <HangmanDrawing />
+          </div>
         </div>
         <div className="hangman-wrapper__right">
           <div className="guessing-word">{displayWord}</div>
           <div className="definition">
-            Definition: fat in a pleasant and attractive way
+            <p className="definition__label">Definition:</p>
+            {showDefinition ? (
+              <p className="definition__text">{currentDefinition}</p>
+            ) : (
+              <Button type="show" handleClick={showDefinitionHandle} />
+            )}
           </div>
           <div className="example">
-            Example: Look at the baby's _______ little legs.
+            <p className="example__label">Example:</p>
+            {showExample ? (
+              <p className="example__text">{currentExample}</p>
+            ) : (
+              <Button type="show" handleClick={showExampleHandle} />
+            )}
           </div>
           <div className="incorrect-guesses">
             {incorrectGuesses} / {totalGuesses}
