@@ -1,95 +1,152 @@
-const HEAD = (
-  <div
-    style={{
-      width: "50px",
-      height: "50px",
-      borderRadius: "100%",
-      border: "10px solid #000",
-      position: "absolute",
-      top: "50px",
-      right: "-30px",
-    }}
-  ></div>
-);
+import React from "react";
 
-const BODY = (
-  <div
-    style={{
-      width: "10px",
-      height: "100px",
-      background: "#000",
-      position: "absolute",
-      top: "120px",
-      right: "0",
-    }}
-  ></div>
-);
+type bodyPartProps = {
+  isShow: boolean;
+};
 
-const LEFT_ARM = (
-  <div
-    style={{
-      width: "10px",
-      height: "70px",
-      background: "#000",
-      transform: "rotate(35deg)",
-      position: "absolute",
-      top: "125px",
-      right: "20px",
-    }}
-  ></div>
-);
+const Head: React.FC<bodyPartProps> = ({ isShow }) => {
+  return (
+    <div
+      style={{
+        width: "50px",
+        height: "50px",
+        borderRadius: "100%",
+        border: "10px solid #000",
+        position: "absolute",
+        top: "50px",
+        right: "-30px",
+        opacity: isShow ? "100%" : "0",
+        transition: "all 0.5s ease",
+      }}
+    ></div>
+  );
+};
 
-const RIGHT_ARM = (
-  <div
-    style={{
-      width: "10px",
-      height: "70px",
-      background: "#000",
-      transform: "rotate(-35deg)",
-      position: "absolute",
-      top: "125px",
-      right: "-20px",
-    }}
-  ></div>
-);
+const Body: React.FC<bodyPartProps> = ({ isShow }) => {
+  return (
+    <div
+      style={{
+        width: "10px",
+        height: isShow ? "100px" : "0",
+        background: "#000",
+        position: "absolute",
+        top: "118px",
+        right: "0",
+        transition: "height 0.5s ease",
+      }}
+    ></div>
+  );
+};
 
-const LEFT_LEG = (
-  <div
-    style={{
-      width: "10px",
-      height: "90px",
-      background: "#000",
-      transform: "rotate(35deg)",
-      position: "absolute",
-      top: "205px",
-      right: "25px",
-    }}
-  ></div>
-);
+const LeftArm: React.FC<bodyPartProps> = ({ isShow }) => {
+  return (
+    <div
+      style={{
+        width: "10px",
+        height: isShow ? "70px" : "0",
+        background: "#000",
+        transform: "rotate(35deg)",
+        position: "absolute",
+        top: "125px",
+        right: "0",
+        transition: "height 0.5s ease",
+        transformOrigin: "top left",
+      }}
+    ></div>
+  );
+};
 
-const RIGHT_LEG = (
-  <div
-    style={{
-      width: "10px",
-      height: "90px",
-      background: "#000",
-      transform: "rotate(-35deg)",
-      position: "absolute",
-      top: "205px",
-      right: "-25px",
-    }}
-  ></div>
-);
+const RightArm: React.FC<bodyPartProps> = ({ isShow }) => {
+  return (
+    <div
+      style={{
+        width: "10px",
+        height: isShow ? "70px" : "0",
+        background: "#000",
+        transform: "rotate(-35deg)",
+        position: "absolute",
+        top: "130px",
+        right: "0",
+        transition: "height 0.5s ease",
+        transformOrigin: "top left",
+      }}
+    ></div>
+  );
+};
 
-const HangmanDrawing = () => {
+const LeftLeg: React.FC<bodyPartProps> = ({ isShow }) => {
+  return (
+    <div
+      style={{
+        width: "10px",
+        height: isShow ? "90px" : "0",
+        background: "#000",
+        transform: "rotate(35deg)",
+        position: "absolute",
+        top: "212px",
+        right: "0",
+        transition: "height 0.5s ease",
+        transformOrigin: "top left",
+      }}
+    ></div>
+  );
+};
+
+const RightLeg: React.FC<bodyPartProps> = ({ isShow }) => {
+  return (
+    <div
+      style={{
+        width: "10px",
+        height: isShow ? "90px" : "0",
+        background: "#000",
+        transform: "rotate(-35deg)",
+        position: "absolute",
+        top: "216px",
+        right: "0",
+        transition: "height 0.5s ease",
+        transformOrigin: "top left",
+      }}
+    ></div>
+  );
+};
+
+type HangmanDrawingProps = {
+  numberOfGuesses: number;
+};
+
+const HangmanDrawing: React.FC<HangmanDrawingProps> = ({ numberOfGuesses }) => {
+  const body = [
+    {
+      component: Head,
+      threshold: 1,
+    },
+    {
+      component: Body,
+      threshold: 2,
+    },
+    {
+      component: LeftArm,
+      threshold: 3,
+    },
+    {
+      component: RightArm,
+      threshold: 4,
+    },
+    {
+      component: LeftLeg,
+      threshold: 5,
+    },
+    {
+      component: RightLeg,
+      threshold: 6,
+    },
+  ];
+
   return (
     <div style={{ position: "relative" }}>
-      {HEAD}
-      {LEFT_ARM}
-      {RIGHT_ARM}
-      {BODY}
-      {LEFT_LEG}
-      {RIGHT_LEG}
+      {body.map((element) => (
+        <element.component isShow={numberOfGuesses >= element.threshold} />
+      ))}
       <div
         style={{
           height: "50px",
