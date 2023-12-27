@@ -5,23 +5,20 @@
   justify-content: space-between;
 }
 
-.hangman-wrapper__left {
-  width: 40%;
-}
-
 .hangman-wrapper__right {
-  width: 55%;
+  width: 50%;
   font-size: 24px;
   text-align: center;
 }
 
 .hangman-wrapper__right > div {
-  margin: 20px 0;
+  margin: 20px 0 40px;
 }
 
-.hangman-wrapper__left,
-.hangman-wrapper__right {
-  border: 1px solid #000;
+.hangman-wrapper__left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .guessing-word {
@@ -52,13 +49,35 @@
 }
 
 .letter:disabled.correct {
-  border: 2px solid #2ECC71;
+  border: 2px solid #2ecc71;
   background-color: #bcfdd7;
-  color: #2ECC71;
+  color: #2ecc71;
 }
 
 .letter:disabled.incorrect {
-  border: 2px solid #C0392B;
+  border: 2px solid #c0392b;
   background-color: #fbb6b6;
-  color: #C0392B;
+  color: #c0392b;
+}
+
+.definition {
+  display: flex;
+  min-height: 70px;
+}
+
+.example {
+  display: flex;
+  min-height: 50px;
+}
+
+.definition__label,
+.example__label {
+  margin-right: 10px;
+}
+
+.definition__text,
+.example__text {
+  text-align: left;
+  font-size: 20px;
+  font-weight: 700;
 }
