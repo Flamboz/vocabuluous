@@ -1,7 +1,7 @@
 import "./Button.css";
 
 type ButtonProps = {
-  type: "add" | "see" | "delete" | "submit";
+  type: "add" | "see" | "delete" | "submit" | "show";
   handleClick?: (event?: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
