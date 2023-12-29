@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Homepage from "./pages/Homepage/Homepage";
-import Hangman from "./pages/Hangman/Hangman";
+import Hangman from "./pages/Hangman/components/HangmanGame/HangmanGame";
 
 function App() {
   return (

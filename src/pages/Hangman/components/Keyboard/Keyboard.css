@@ -1,0 +1,30 @@
+.letters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.letter {
+  width: 50px;
+  line-height: 45px;
+  text-align: center;
+  color: #fff;
+  font-size: 24px;
+  background-color: #6260b8;
+  border: 2px solid #6260b8;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.letter:disabled.correct {
+  border: 2px solid #2ecc71;
+  background-color: #bcfdd7;
+  color: #2ecc71;
+}
+
+.letter:disabled.incorrect {
+  border: 2px solid #c0392b;
+  background-color: #fbb6b6;
+  color: #c0392b;
+}

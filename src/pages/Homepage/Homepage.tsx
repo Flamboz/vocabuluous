@@ -47,7 +47,7 @@ const Homepage = () => {
         </div>
         <div className="homepage__games">
           <div className="game">
-            <Link to="/hangman">Hangman</Link>
+            <Link to={"/hangman"}> Hangman</Link>
           </div>
         </div>
       </div>

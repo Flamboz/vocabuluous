@@ -1,10 +1,8 @@
-import React from "react";
-
 type bodyPartProps = {
-  isShow: boolean;
+  isShown: boolean;
 };
 
-const Head: React.FC<bodyPartProps> = ({ isShow }) => {
+const Head: React.FC<bodyPartProps> = ({ isShown }) => {
   return (
     <div
       style={{
@@ -15,19 +13,19 @@ const Head: React.FC<bodyPartProps> = ({ isShow }) => {
         position: "absolute",
         top: "50px",
         right: "-30px",
-        opacity: isShow ? "100%" : "0",
+        opacity: isShown ? "100%" : "0",
         transition: "all 0.5s ease",
       }}
     ></div>
   );
 };
 
-const Body: React.FC<bodyPartProps> = ({ isShow }) => {
+const Body: React.FC<bodyPartProps> = ({ isShown }) => {
   return (
     <div
       style={{
         width: "10px",
-        height: isShow ? "100px" : "0",
+        height: isShown ? "100px" : "0",
         background: "#000",
         position: "absolute",
         top: "118px",
@@ -38,12 +36,12 @@ const Body: React.FC<bodyPartProps> = ({ isShow }) => {
   );
 };
 
-const LeftArm: React.FC<bodyPartProps> = ({ isShow }) => {
+const LeftArm: React.FC<bodyPartProps> = ({ isShown }) => {
   return (
     <div
       style={{
         width: "10px",
-        height: isShow ? "70px" : "0",
+        height: isShown ? "70px" : "0",
         background: "#000",
         transform: "rotate(35deg)",
         position: "absolute",
@@ -56,12 +54,12 @@ const LeftArm: React.FC<bodyPartProps> = ({ isShow }) => {
   );
 };
 
-const RightArm: React.FC<bodyPartProps> = ({ isShow }) => {
+const RightArm: React.FC<bodyPartProps> = ({ isShown }) => {
   return (
     <div
       style={{
         width: "10px",
-        height: isShow ? "70px" : "0",
+        height: isShown ? "70px" : "0",
         background: "#000",
         transform: "rotate(-35deg)",
         position: "absolute",
@@ -74,12 +72,12 @@ const RightArm: React.FC<bodyPartProps> = ({ isShow }) => {
   );
 };
 
-const LeftLeg: React.FC<bodyPartProps> = ({ isShow }) => {
+const LeftLeg: React.FC<bodyPartProps> = ({ isShown }) => {
   return (
     <div
       style={{
         width: "10px",
-        height: isShow ? "90px" : "0",
+        height: isShown ? "90px" : "0",
         background: "#000",
         transform: "rotate(35deg)",
         position: "absolute",
@@ -92,12 +90,12 @@ const LeftLeg: React.FC<bodyPartProps> = ({ isShow }) => {
   );
 };
 
-const RightLeg: React.FC<bodyPartProps> = ({ isShow }) => {
+const RightLeg: React.FC<bodyPartProps> = ({ isShown }) => {
   return (
     <div
       style={{
         width: "10px",
-        height: isShow ? "90px" : "0",
+        height: isShown ? "90px" : "0",
         background: "#000",
         transform: "rotate(-35deg)",
         position: "absolute",
@@ -110,11 +108,15 @@ const RightLeg: React.FC<bodyPartProps> = ({ isShow }) => {
   );
 };
 
-type HangmanDrawingProps = {
-  numberOfGuesses: number;
+import React from "react";
+
+type HangmanBodyProps = {
+  numberOfIncorrectGuesses: number;
 };
 
-const HangmanDrawing: React.FC<HangmanDrawingProps> = ({ numberOfGuesses }) => {
+const HangmanBody: React.FC<HangmanBodyProps> = ({
+  numberOfIncorrectGuesses,
+}) => {
   const body = [
     {
       component: Head,
@@ -143,39 +145,15 @@ const HangmanDrawing: React.FC<HangmanDrawingProps> = ({ numberOfGuesses }) => {
   ];
 
   return (
-    <div style={{ position: "relative" }}>
-      {body.map((element) => (
-        <element.component isShow={numberOfGuesses >= element.threshold} />
+    <>
+      {body.map((element, index) => (
+        <element.component
+          key={index}
+          isShown={numberOfIncorrectGuesses >= element.threshold}
+        />
       ))}
-      <div
-        style={{
-          height: "50px",
-          width: "10px",
-          background: "#000",
-          position: "absolute",
-          top: 0,
-          right: 0,
-        }}
-      ></div>
-      <div
-        style={{
-          height: "10px",
-          width: "200px",
-          background: "#000",
-          marginLeft: "120px",
-        }}
-      ></div>
-      <div
-        style={{
-          height: "400px",
-          width: "10px",
-          background: "#000",
-          marginLeft: "120px",
-        }}
-      ></div>
-      <div style={{ height: "10px", width: "250px", background: "#000" }}></div>
-    </div>
+    </>
   );
 };
 
-export default HangmanDrawing;
+export default HangmanBody;

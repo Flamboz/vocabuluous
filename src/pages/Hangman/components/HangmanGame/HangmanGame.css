@@ -1,0 +1,30 @@
+.hangman-wrapper {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.hangman-wrapper__right {
+  width: 50%;
+  font-size: 24px;
+  text-align: center;
+}
+
+.hangman-wrapper__right > div {
+  margin: 20px 0 40px;
+}
+
+.hangman-wrapper__left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.guessing-word {
+  font-size: 56px;
+}
+
+.guessing-word__char {
+  padding: 0 10px;
+}

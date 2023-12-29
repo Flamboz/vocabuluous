@@ -1,0 +1,21 @@
+.hint {
+  display: flex;
+  min-height: 70px;
+}
+
+.hint--example {
+  display: flex;
+  min-height: 50px;
+}
+
+.hint__label,
+.hint__label {
+  margin-right: 10px;
+}
+
+.hint__text,
+.hint__text {
+  text-align: left;
+  font-size: 20px;
+  font-weight: 700;
+}
