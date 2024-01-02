@@ -1,10 +1,11 @@
 import Button from "../../components/Button/Button";
 import "./Homepage.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AddWordsModal from "../../components/AddWordsModal/AddWordsModal";
 import SeeWordsModal from "../../components/SeeWordsModal/SeeWordsModal";
 import DeleteWordsModal from "../../components/DeleteWordsModal/DeleteWordsModal";
+import setWordsToLocalStorage from "../../services/setWordsToLocalStorage";
 
 const Homepage = () => {
   const [openedModalType, setOpenedModalType] = useState<
@@ -12,6 +13,10 @@ const Homepage = () => {
   >(null);
 
   const [words, setWords] = useState("");
+
+  useEffect(() => {
+    setWordsToLocalStorage(words);
+  }, [words]);
 
   const handleCloseModal = () => {
     setOpenedModalType(null);
@@ -29,8 +34,9 @@ const Homepage = () => {
     setOpenedModalType("delete");
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = (event: React.FormEvent, submittedWords: string) => {
     event.preventDefault();
+    setWords(submittedWords);
     handleCloseModal();
   };
 

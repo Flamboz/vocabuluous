@@ -7,6 +7,8 @@ import Hint from "../Hint/Hint";
 import useModal from "../../hooks/useModal";
 import useHangmanGame from "../../hooks/useHangmanGame";
 import useHint from "../../hooks/useHint";
+import { useEffect, useState } from "react";
+import getWordsFromLocalStorage from "../../../../services/getWordsFromLocalStorage";
 
 const TOTAL_OF_INCORRECT_GUESSES = 7;
 
@@ -15,8 +17,14 @@ type HangmanGameProps = {
 };
 
 const HangmanGame: React.FC<HangmanGameProps> = () => {
-  const wordToGuess = "chubby".split("");
   const { isModalOpen, modalText, closeModal, openModal } = useModal();
+
+  const [wordToGuess, setWordToGuess] = useState<string[]>([]);
+
+  useEffect(() => {
+    const firstWordFromLocalStorage = getWordsFromLocalStorage();
+    setWordToGuess(firstWordFromLocalStorage);
+  }, []);
 
   const onGameWon = () => {
     openModal("you won :)");
@@ -28,6 +36,10 @@ const HangmanGame: React.FC<HangmanGameProps> = () => {
 
   const { incorrectGuesses, guessedLetters, updateGuessedLetters } =
     useHangmanGame(wordToGuess, onGameWon, onGameLost);
+
+  useEffect(() => {
+    console.log(wordToGuess);
+  }, [wordToGuess]);
 
   const displayWord = wordToGuess.map((_, index) => (
     <span key={index} className="guessing-word__char">

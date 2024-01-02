@@ -16,8 +16,9 @@ const useHangmanGame = (wordToGuess: string[], onGameWon: () => void, onGameLost
   };
 
   const updateGuessedLetters = (letterClicked: string) => {
-    const updatedLetters = guessedLetters.map((letter, index) =>
+    const updatedLetters = guessedLetters.map((letter, index) => {
       wordToGuess[index] === letterClicked ? letterClicked : letter
+    }
     );
     setGuessedLetters(updatedLetters);
     updateIncorrectGuesses(letterClicked);
@@ -33,7 +34,7 @@ const useHangmanGame = (wordToGuess: string[], onGameWon: () => void, onGameLost
   }, [incorrectGuesses, isGameOver, onGameLost]);
 
   useEffect(() => {
-    if (wordToGuess.toString() === guessedLetters.toString() && !isGameOver) {
+    if (!!wordToGuess.toString() && wordToGuess.toString() === guessedLetters.toString() && !isGameOver) {
       onGameWon()
       setIsGameOver(true);
     }
