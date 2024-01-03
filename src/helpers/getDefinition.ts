@@ -4,16 +4,17 @@ const useGetDefinition = (word:string, partOfSpeech: string) => {
   const [definitions, setDefinitions] = useState([])
 
   useEffect(() => {
-    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`, {
-      method: "GET",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-          setDefinitions(data[0].meanings.find((meaning) => meaning.partOfSpeech === partOfSpeech).definitions);
+    if (word) {
+      fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`, {
+        method: "GET",
       })
-      .catch((error) => console.log(error));
+        .then((response) => response.json())
+        .then((data) => {
+            setDefinitions(data[0].meanings.find((meaning) => meaning.partOfSpeech === partOfSpeech).definitions);
+        })
+        .catch((error) => console.log(error));
+    }
   }, [word, partOfSpeech]);
-
 
   return definitions;
 };

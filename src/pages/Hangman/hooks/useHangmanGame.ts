@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
+import getWordsFromLocalStorage from "../../../services/getWordsFromLocalStorage";
 
 const TOTAL_OF_INCORRECT_GUESSES = 7;
 
-const useHangmanGame = (wordToGuess: string[], onGameWon: () => void, onGameLost: () => void) => {
+const useHangmanGame = (onGameWon: () => void, onGameLost: () => void) => {
   const [incorrectGuesses, setIncorrectGuesses] = useState(0);
+  const wordToGuess = getWordsFromLocalStorage();
+
   const [guessedLetters, setGuessedLetters] = useState(
     Array(wordToGuess.length).fill("")
   );
+
   const [isGameOver, setIsGameOver] = useState(false);
 
   const updateIncorrectGuesses = (letterClicked: string) => {
@@ -16,9 +20,8 @@ const useHangmanGame = (wordToGuess: string[], onGameWon: () => void, onGameLost
   };
 
   const updateGuessedLetters = (letterClicked: string) => {
-    const updatedLetters = guessedLetters.map((letter, index) => {
+    const updatedLetters = guessedLetters.map((letter, index) => 
       wordToGuess[index] === letterClicked ? letterClicked : letter
-    }
     );
     setGuessedLetters(updatedLetters);
     updateIncorrectGuesses(letterClicked);

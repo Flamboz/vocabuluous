@@ -35,11 +35,7 @@ const HangmanGame: React.FC<HangmanGameProps> = () => {
   };
 
   const { incorrectGuesses, guessedLetters, updateGuessedLetters } =
-    useHangmanGame(wordToGuess, onGameWon, onGameLost);
-
-  useEffect(() => {
-    console.log(wordToGuess);
-  }, [wordToGuess]);
+    useHangmanGame(onGameWon, onGameLost);
 
   const displayWord = wordToGuess.map((_, index) => (
     <span key={index} className="guessing-word__char">
@@ -67,7 +63,7 @@ const HangmanGame: React.FC<HangmanGameProps> = () => {
     updateGuessedLetters(letterClicked);
   };
 
-  const definitions = useGetDefinition("chubby", "adjective");
+  const definitions = useGetDefinition(wordToGuess.join(""), "verb");
 
   const {
     showDefinition,
@@ -77,7 +73,7 @@ const HangmanGame: React.FC<HangmanGameProps> = () => {
     currentDefinition,
     currentExample,
     showHint,
-  } = useHint(definitions);
+  } = useHint(definitions, wordToGuess.join(""));
 
   const displayDefinition = () => {
     showHint(setShowDefinition);
