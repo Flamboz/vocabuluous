@@ -1,6 +1,6 @@
 import "./HangmanGame.css";
 import Modal from "../../../../components/Modal/Modal";
-import useGetDefinition from "../../../../helpers/getDefinition";
+import useGetDefinitions from "../../hooks/useGetDefinitions";
 import HangmanDrawing from "../HangmanDrawing/HangmanDrawing";
 import Keyboard from "../Keyboard/Keyboard";
 import Hint from "../Hint/Hint";
@@ -63,7 +63,7 @@ const HangmanGame: React.FC<HangmanGameProps> = () => {
     updateGuessedLetters(letterClicked);
   };
 
-  const definitions = useGetDefinition(wordToGuess.join(""), "verb");
+  const { definitions } = useGetDefinitions();
 
   const {
     showDefinition,
@@ -73,7 +73,7 @@ const HangmanGame: React.FC<HangmanGameProps> = () => {
     currentDefinition,
     currentExample,
     showHint,
-  } = useHint(definitions, wordToGuess.join(""));
+  } = useHint(definitions);
 
   const displayDefinition = () => {
     showHint(setShowDefinition);
