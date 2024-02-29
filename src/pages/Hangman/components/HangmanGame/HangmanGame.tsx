@@ -68,8 +68,8 @@ const HangmanGame: React.FC<HangmanGameProps> = () => {
   const {
     showDefinition,
     setShowDefinition,
-    showExample,
-    setShowExample,
+    showExamples,
+    setShowExamples,
     currentDefinition,
     currentExample,
     showHint,
@@ -79,8 +79,8 @@ const HangmanGame: React.FC<HangmanGameProps> = () => {
     showHint(setShowDefinition);
   };
 
-  const displayExample = () => {
-    showHint(setShowExample);
+  const displayExamples = () => {
+    showHint(setShowExamples);
   };
 
   return (
@@ -94,16 +94,11 @@ const HangmanGame: React.FC<HangmanGameProps> = () => {
         <div className="hangman-wrapper__right">
           <div className="guessing-word">{displayWord}</div>
           <Hint
-            label="Definition"
-            content={currentDefinition}
-            show={showDefinition}
-            onClick={displayDefinition}
-          />
-          <Hint
-            label="Example"
-            content={currentExample}
-            show={showExample}
-            onClick={displayExample}
+            definitions={definitions}
+            showDefinition={showDefinition}
+            showExamples={showExamples}
+            onClickDefinition={displayDefinition}
+            onClickExamples={displayExamples}
           />
           <div className="incorrect-guesses">
             {incorrectGuesses} / {TOTAL_OF_INCORRECT_GUESSES}

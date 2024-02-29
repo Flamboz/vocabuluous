@@ -1,23 +1,59 @@
 import Button from "../../../../components/Button/Button";
 import "./Hint.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
 
 type HintProps = {
-  label: string;
-  content: string | null;
-  show: boolean;
-  onClick: () => void;
+  definitions: {
+    definition: string;
+    examples: string[];
+  }[];
+  showDefinition: boolean;
+  showExamples: boolean;
+  onClickDefinition: () => void;
+  onClickExamples: () => void;
 };
 
-const Hint: React.FC<HintProps> = ({ label, content, show, onClick }) => {
+const Hint: React.FC<HintProps> = ({
+  definitions,
+  showDefinition,
+  showExamples,
+  onClickDefinition,
+  onClickExamples,
+}) => {
   return (
-    <div className="hint hint--definition">
-      <p className="hint__label">{label}</p>
-      {show ? (
-        <p className="hint__text">{content}</p>
-      ) : (
-        <Button type="show" handleClick={onClick} />
-      )}
-    </div>
+    <Swiper modules={[Navigation]}>
+      {definitions.map((definition, index) => (
+        <SwiperSlide key={index}>
+          <div className="hint">
+            <div className="hint__definition">
+              <p className="hint__label">Definition:</p>
+              {showDefinition ? (
+                <p className="hint__text">{definition.definition}</p>
+              ) : (
+                <Button type="show" handleClick={onClickDefinition} />
+              )}
+            </div>
+            <div className="hint__example">
+              <p className="hint__label">Examples:</p>
+              {showExamples ? (
+                <div>
+                  {definition.examples.map((example, index) => (
+                    <p className="hint__text" key={index}>
+                      {`${index + 1}) ${example}`}
+                    </p>
+                  ))}
+                </div>
+              ) : (
+                <Button type="show" handleClick={onClickExamples} />
+              )}
+            </div>
+          </div>
+        </SwiperSlide>
+      ))}
+    </Swiper>
   );
 };
 

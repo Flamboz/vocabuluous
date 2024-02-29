@@ -11,7 +11,7 @@ const useHint = (definitions: Definition[]) => {
   );
   const [currentExample, setCurrentExample] = useState<string | null>(null);
   const [showDefinition, setShowDefinition] = useState(false);
-  const [showExample, setShowExample] = useState(false);
+  const [showExamples, setShowExamples] = useState(false);
 
   const showHint = (setter: (value: boolean) => void) => {
     if (definitions) {
@@ -25,8 +25,8 @@ const useHint = (definitions: Definition[]) => {
   return {
     showDefinition,
     setShowDefinition,
-    showExample,
-    setShowExample,
+    showExamples,
+    setShowExamples,
     currentDefinition,
     currentExample,
     showHint,

@@ -1,19 +1,25 @@
 .hint {
   display: flex;
-  min-height: 70px;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-.hint--example {
+.hint__definition,
+.hint__example {
   display: flex;
   min-height: 50px;
+  margin: 10px 0;
 }
 
-.hint__label,
+.hint__example {
+  min-height: 100px;
+}
+
 .hint__label {
   margin-right: 10px;
+  min-width: 120px;
 }
 
-.hint__text,
 .hint__text {
   text-align: left;
   font-size: 20px;
