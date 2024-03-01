@@ -70,8 +70,6 @@ const HangmanGame: React.FC<HangmanGameProps> = () => {
     setShowDefinition,
     showExamples,
     setShowExamples,
-    currentDefinition,
-    currentExample,
     showHint,
   } = useHint(definitions);
 
