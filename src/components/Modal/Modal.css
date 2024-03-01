@@ -1,5 +1,6 @@
 .modal {
-  min-width: 350px;
+  min-width: 450px;
+  min-height: 250px;
   padding: 20px;
   border: 0;
   border-radius: 10px;
@@ -20,14 +21,28 @@
   margin-bottom: 20px;
 }
 
-.close-button {
+.modal__buttons button {
   position: absolute;
   top: 20px;
-  right: 20px;
   font-size: 24px;
   background: none;
   border: none;
   cursor: pointer;
+}
+
+.modal__buttons--home {
+  display: flex;
+  align-items: center;
+  left: 20px;
+}
+
+.modal__buttons--close {
+  right: 20px;
+}
+
+.modal__buttons-text {
+  font-size: 16px;
+  margin-left: 5px;
 }
 
 .modal__form {
@@ -38,8 +53,17 @@
 
 .modal__input {
   width: 100%;
+  font-size: 20px;
   box-sizing: border-box;
   padding: 5px;
-  font-size: 16px;
   margin-bottom: 20px;
+}
+
+.modal__text {
+  width: 70%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 36px;
 }
