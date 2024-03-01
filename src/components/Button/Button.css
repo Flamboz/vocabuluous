@@ -18,7 +18,7 @@
 }
 
 .button--add:hover {
-  background-color: #237C3C;
+  background-color: #237c3c;
 }
 
 .button--see {
@@ -26,7 +26,7 @@
 }
 
 .button--see:hover {
-  background-color: #007DD7;
+  background-color: #007dd7;
 }
 
 .button--delete {
@@ -34,7 +34,7 @@
 }
 
 .button--delete:hover {
-  background-color: #AD1B20;
+  background-color: #ad1b20;
 }
 
 .button--submit {
@@ -42,7 +42,7 @@
 }
 
 .button--submit:hover {
-  background-color: #007DD7;
+  background-color: #007dd7;
 }
 
 .button--show {
@@ -53,5 +53,21 @@
 }
 
 .button--show:hover {
-  background-color: #007DD7;
+  background-color: #007dd7;
+}
+
+.button--home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: #2adba4;
+  font-size: 36px;
+  cursor: pointer;
+}
+
+.button--home:hover {
+  background-color: #09b981;
 }
