@@ -1,9 +1,12 @@
 import Button from "../../../../components/Button/Button";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
+import { Pagination, Mousewheel, Keyboard } from "swiper/modules";
+import SwiperCore from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import "./Hint.css";
+
+SwiperCore.use([Keyboard, Mousewheel, Pagination]);
 
 type HintProps = {
   definitions: {
@@ -30,6 +33,8 @@ const Hint: React.FC<HintProps> = ({
         clickable: true,
       }}
       direction="vertical"
+      mousewheel={true}
+      keyboard={true}
     >
       {definitions.map((definition, index) => (
         <SwiperSlide key={index}>
