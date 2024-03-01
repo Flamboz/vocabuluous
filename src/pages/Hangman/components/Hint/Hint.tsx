@@ -1,9 +1,9 @@
 import Button from "../../../../components/Button/Button";
-import "./Hint.css";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Pagination } from "swiper/modules";
 import "swiper/css";
-import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "./Hint.css";
 
 type HintProps = {
   definitions: {
@@ -24,7 +24,13 @@ const Hint: React.FC<HintProps> = ({
   onClickExamples,
 }) => {
   return (
-    <Swiper modules={[Navigation]}>
+    <Swiper
+      modules={[Pagination]}
+      pagination={{
+        clickable: true,
+      }}
+      direction="vertical"
+    >
       {definitions.map((definition, index) => (
         <SwiperSlide key={index}>
           <div className="hint">

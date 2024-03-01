@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  padding-right: 20px;
 }
 
 .hint__definition,
@@ -24,4 +25,12 @@
   text-align: left;
   font-size: 20px;
   font-weight: 700;
+}
+
+.swiper {
+  max-height: 200px;
+}
+
+.swiper-vertical > .swiper-pagination-bullets, .swiper-pagination-vertical.swiper-pagination-bullets{
+  top: 30%;
 }
