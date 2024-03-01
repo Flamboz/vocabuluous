@@ -1,26 +1,20 @@
 import { useState } from "react";
 
-type Definition = {
-  definition: string;
-  examples: string[];
-};
+const useHint = () => {
+  const [currentItems, setCurrentItems] = useState<string[] | null>(null);
 
-const useHint = (definitions: Definition[]) => {
-  const [showDefinition, setShowDefinition] = useState(false);
-  const [showExamples, setShowExamples] = useState(false);
-
-  const showHint = (setter: (value: boolean) => void) => {
-    if (definitions) {
-      setter(true);
-    }
+  const setItems = (item: string | null) => {
+    if (item === null) return;
+    
+    setCurrentItems((prevItems) => {
+      const updatedItems = prevItems ?? [];
+      return [...updatedItems, item];
+    });
   };
 
   return {
-    showDefinition,
-    setShowDefinition,
-    showExamples,
-    setShowExamples,
-    showHint,
+    currentItems,
+    setItems,
   };
 };
 

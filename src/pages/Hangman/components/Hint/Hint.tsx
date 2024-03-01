@@ -13,19 +13,11 @@ type HintProps = {
     definition: string;
     examples: string[];
   }[];
-  showDefinition: boolean;
-  showExamples: boolean;
-  onClickDefinition: () => void;
-  onClickExamples: () => void;
+  currentItems: string[] | null;
+  setItems: (item: string | null) => void;
 };
 
-const Hint: React.FC<HintProps> = ({
-  definitions,
-  showDefinition,
-  showExamples,
-  onClickDefinition,
-  onClickExamples,
-}) => {
+const Hint: React.FC<HintProps> = ({ definitions, currentItems, setItems }) => {
   return (
     <Swiper
       modules={[Pagination]}
@@ -41,15 +33,18 @@ const Hint: React.FC<HintProps> = ({
           <div className="hint">
             <div className="hint__definition">
               <p className="hint__label">Definition:</p>
-              {showDefinition ? (
+              {currentItems?.includes(`definition-${index}`) ? (
                 <p className="hint__text">{definition.definition}</p>
               ) : (
-                <Button type="show" handleClick={onClickDefinition} />
+                <Button
+                  type="show"
+                  handleClick={() => setItems(`definition-${index}`)}
+                />
               )}
             </div>
             <div className="hint__example">
               <p className="hint__label">Examples:</p>
-              {showExamples ? (
+              {currentItems?.includes(`examples-${index}`) ? (
                 <div>
                   {definition.examples.map((example, index) => (
                     <p className="hint__text" key={index}>
@@ -58,7 +53,10 @@ const Hint: React.FC<HintProps> = ({
                   ))}
                 </div>
               ) : (
-                <Button type="show" handleClick={onClickExamples} />
+                <Button
+                  type="show"
+                  handleClick={() => setItems(`examples-${index}`)}
+                />
               )}
             </div>
           </div>

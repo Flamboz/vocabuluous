@@ -68,21 +68,7 @@ const HangmanGame: React.FC<HangmanGameProps> = () => {
 
   const { definitions } = useGetDefinitions();
 
-  const {
-    showDefinition,
-    setShowDefinition,
-    showExamples,
-    setShowExamples,
-    showHint,
-  } = useHint(definitions);
-
-  const displayDefinition = () => {
-    showHint(setShowDefinition);
-  };
-
-  const displayExamples = () => {
-    showHint(setShowExamples);
-  };
+  const { currentItems, setItems } = useHint();
 
   return (
     <>
@@ -96,10 +82,8 @@ const HangmanGame: React.FC<HangmanGameProps> = () => {
           <div className="guessing-word">{displayWord}</div>
           <Hint
             definitions={definitions}
-            showDefinition={showDefinition}
-            showExamples={showExamples}
-            onClickDefinition={displayDefinition}
-            onClickExamples={displayExamples}
+            currentItems={currentItems}
+            setItems={setItems}
           />
           <div className="incorrect-guesses">
             {incorrectGuesses} / {TOTAL_OF_INCORRECT_GUESSES}
