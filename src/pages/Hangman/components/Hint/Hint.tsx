@@ -15,9 +15,15 @@ type HintProps = {
   }[];
   currentItems: string[] | null;
   setItems: (item: string | null) => void;
+  updateIncorrectGuessesOnHintClick: () => void;
 };
 
-const Hint: React.FC<HintProps> = ({ definitions, currentItems, setItems }) => {
+const Hint: React.FC<HintProps> = ({
+  definitions,
+  currentItems,
+  setItems,
+  updateIncorrectGuessesOnHintClick,
+}) => {
   return (
     <Swiper
       modules={[Pagination]}
@@ -38,7 +44,10 @@ const Hint: React.FC<HintProps> = ({ definitions, currentItems, setItems }) => {
               ) : (
                 <Button
                   type="show"
-                  handleClick={() => setItems(`definition-${index}`)}
+                  handleClick={() => {
+                    updateIncorrectGuessesOnHintClick();
+                    setItems(`definition-${index}`);
+                  }}
                 />
               )}
             </div>
@@ -55,7 +64,10 @@ const Hint: React.FC<HintProps> = ({ definitions, currentItems, setItems }) => {
               ) : (
                 <Button
                   type="show"
-                  handleClick={() => setItems(`examples-${index}`)}
+                  handleClick={() => {
+                    updateIncorrectGuessesOnHintClick();
+                    setItems(`examples-${index}`);
+                  }}
                 />
               )}
             </div>

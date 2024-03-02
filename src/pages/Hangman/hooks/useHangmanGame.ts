@@ -13,37 +13,45 @@ const useHangmanGame = (onGameWon: () => void, onGameLost: () => void) => {
 
   const [isGameOver, setIsGameOver] = useState(false);
 
-  const updateIncorrectGuesses = (letterClicked: string) => {
+  const updateIncorrectGuessesOnLetterClick = (letterClicked: string) => {
     if (!wordToGuess.includes(letterClicked)) {
       setIncorrectGuesses(incorrectGuesses + 1);
     }
   };
 
+  const updateIncorrectGuessesOnHintClick = () => {
+    setIncorrectGuesses(incorrectGuesses + 1);
+  };
+
   const updateGuessedLetters = (letterClicked: string) => {
-    const updatedLetters = guessedLetters.map((letter, index) => 
+    const updatedLetters = guessedLetters.map((letter, index) =>
       wordToGuess[index] === letterClicked ? letterClicked : letter
     );
     setGuessedLetters(updatedLetters);
-    updateIncorrectGuesses(letterClicked);
+    updateIncorrectGuessesOnLetterClick(letterClicked);
   };
 
   useEffect(() => {
     if (incorrectGuesses === TOTAL_OF_INCORRECT_GUESSES && !isGameOver) {
       setTimeout(() => {
-        onGameLost()
+        onGameLost();
         setIsGameOver(true);
       }, 0);
     }
   }, [incorrectGuesses, isGameOver, onGameLost]);
 
   useEffect(() => {
-    if (!!wordToGuess.toString() && wordToGuess.toString() === guessedLetters.toString() && !isGameOver) {
-      onGameWon()
+    if (
+      !!wordToGuess.toString() &&
+      wordToGuess.toString() === guessedLetters.toString() &&
+      !isGameOver
+    ) {
+      onGameWon();
       setIsGameOver(true);
     }
   }, [guessedLetters, wordToGuess, isGameOver, onGameWon]);
 
-  return { incorrectGuesses, guessedLetters, updateGuessedLetters };
+  return { incorrectGuesses, guessedLetters, updateGuessedLetters, updateIncorrectGuessesOnHintClick };
 };
 
 export default useHangmanGame;

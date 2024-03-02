@@ -37,8 +37,12 @@ const HangmanGame: React.FC<HangmanGameProps> = () => {
     openModal("you lost :(");
   };
 
-  const { incorrectGuesses, guessedLetters, updateGuessedLetters } =
-    useHangmanGame(onGameWon, onGameLost);
+  const {
+    incorrectGuesses,
+    guessedLetters,
+    updateGuessedLetters,
+    updateIncorrectGuessesOnHintClick,
+  } = useHangmanGame(onGameWon, onGameLost);
 
   const displayWord = wordToGuess.map((_, index) => (
     <span key={index} className="guessing-word__char">
@@ -84,6 +88,9 @@ const HangmanGame: React.FC<HangmanGameProps> = () => {
             definitions={definitions}
             currentItems={currentItems}
             setItems={setItems}
+            updateIncorrectGuessesOnHintClick={
+              updateIncorrectGuessesOnHintClick
+            }
           />
           <div className="incorrect-guesses">
             {incorrectGuesses} / {TOTAL_OF_INCORRECT_GUESSES}
