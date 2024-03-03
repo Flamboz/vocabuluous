@@ -13,6 +13,21 @@
   background: rgba(0, 0, 0, 60%);
 }
 
+.modal[open] {
+  animation: slideFromTop 0.3s ease-in;
+}
+
+@keyframes slideFromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .modal__title {
   display: block;
   max-width: 90%;
