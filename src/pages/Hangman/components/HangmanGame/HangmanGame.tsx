@@ -42,6 +42,7 @@ const HangmanGame: React.FC<HangmanGameProps> = () => {
     guessedLetters,
     updateGuessedLetters,
     updateIncorrectGuessesOnHintClick,
+    isGameOver,
   } = useHangmanGame(onGameWon, onGameLost);
 
   const displayWord = wordToGuess.map((_, index) => (
@@ -63,6 +64,8 @@ const HangmanGame: React.FC<HangmanGameProps> = () => {
   };
 
   const letterClickHandler = (event: React.MouseEvent<HTMLSpanElement>) => {
+    if (isGameOver) return;
+
     const button = event.target as HTMLButtonElement;
     const letterClicked = button.innerText.toLowerCase();
 

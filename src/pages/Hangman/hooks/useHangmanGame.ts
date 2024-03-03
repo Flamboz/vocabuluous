@@ -20,6 +20,8 @@ const useHangmanGame = (onGameWon: () => void, onGameLost: () => void) => {
   };
 
   const updateIncorrectGuessesOnHintClick = () => {
+    if (isGameOver) return;
+
     setIncorrectGuesses(incorrectGuesses + 1);
   };
 
@@ -51,7 +53,13 @@ const useHangmanGame = (onGameWon: () => void, onGameLost: () => void) => {
     }
   }, [guessedLetters, wordToGuess, isGameOver, onGameWon]);
 
-  return { incorrectGuesses, guessedLetters, updateGuessedLetters, updateIncorrectGuessesOnHintClick };
+  return {
+    incorrectGuesses,
+    guessedLetters,
+    updateGuessedLetters,
+    updateIncorrectGuessesOnHintClick,
+    isGameOver,
+  };
 };
 
 export default useHangmanGame;
