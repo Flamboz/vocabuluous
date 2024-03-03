@@ -9,12 +9,31 @@ export type BaseModalProps = PropsWithChildren & {
 
 const Modal: React.FC<BaseModalProps> = ({ isOpen, onClose, children }) => {
   const navigate = useNavigate();
-
   const modalRef = useRef<HTMLDialogElement | null>(null);
 
   const handleModalClose = () => {
     if (onClose) {
       onClose();
+    }
+  };
+
+  const handleBackdropClick = (event: MouseEvent) => {
+    const modalElement = modalRef.current;
+    if (modalElement && event.target === modalElement) {
+      handleModalClose();
+    }
+  };
+
+  const toggleModal = (isOpen: boolean) => {
+    const modalElement = modalRef.current;
+    if (!modalElement) return;
+
+    if (isOpen) {
+      modalElement.showModal();
+      modalElement.addEventListener("click", handleBackdropClick);
+    } else {
+      modalElement.close();
+      modalElement.removeEventListener("click", handleBackdropClick);
     }
   };
 
@@ -24,15 +43,10 @@ const Modal: React.FC<BaseModalProps> = ({ isOpen, onClose, children }) => {
   };
 
   useEffect(() => {
-    const modalElement = modalRef.current;
-
-    if (modalElement) {
-      if (isOpen) {
-        modalElement.showModal();
-      } else {
-        modalElement.close();
-      }
-    }
+    toggleModal(isOpen);
+    return () => {
+      toggleModal(false);
+    };
   }, [isOpen]);
 
   return (
