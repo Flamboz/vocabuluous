@@ -3,14 +3,13 @@ const getFirstWord = (str: string) => {
 };
 
 const getWordsFromLocalStorage = () => {
-  const items = JSON.parse(localStorage.getItem('words') || "");
-  let wordArray:string[] = []
+  const items = JSON.parse(localStorage.getItem("words") || "");
+  let firstWord = null;
 
   if (items) {
-    const firstWord = getFirstWord(items);
-    wordArray = firstWord.split("");
+    firstWord = getFirstWord(items);
   }
-  return wordArray
-}
+  return firstWord;
+};
 
-export default getWordsFromLocalStorage
+export default getWordsFromLocalStorage;
