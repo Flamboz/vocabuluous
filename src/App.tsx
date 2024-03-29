@@ -7,7 +7,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Homepage />} />
-      <Route path="/hangman" element={<Hangman word="control" />} />
+      <Route path="/hangman" element={<Hangman />} />
     </Routes>
   );
 }
