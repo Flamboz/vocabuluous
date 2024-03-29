@@ -13,16 +13,14 @@ import { useNavigate } from "react-router-dom";
 
 const TOTAL_OF_INCORRECT_GUESSES = 7;
 
-type HangmanGameProps = {
-  word: string;
-};
-
-const HangmanGame: React.FC<HangmanGameProps> = () => {
+const HangmanGame = () => {
   const navigate = useNavigate();
 
   const { isModalOpen, modalText, closeModal, openModal } = useModal();
 
-  const [wordToGuess, setWordToGuess] = useState<string[]>([]);
+  const [wordToGuess, setWordToGuess] = useState<string | null>(null);
+
+  const wordToGuessLettersArray = wordToGuess?.split("");
 
   useEffect(() => {
     const firstWordFromLocalStorage = getWordsFromLocalStorage();
@@ -45,7 +43,7 @@ const HangmanGame: React.FC<HangmanGameProps> = () => {
     isGameOver,
   } = useHangmanGame(onGameWon, onGameLost);
 
-  const displayWord = wordToGuess.map((_, index) => (
+  const displayWord = wordToGuessLettersArray?.map((_, index) => (
     <span key={index} className="guessing-word__char">
       {guessedLetters[index] || "_"}
     </span>
@@ -56,7 +54,7 @@ const HangmanGame: React.FC<HangmanGameProps> = () => {
 
     button.disabled = true;
 
-    if (wordToGuess.includes(letterToCheck)) {
+    if (wordToGuessLettersArray?.includes(letterToCheck)) {
       button.classList.add("correct");
     } else {
       button.classList.add("incorrect");
@@ -73,7 +71,7 @@ const HangmanGame: React.FC<HangmanGameProps> = () => {
     updateGuessedLetters(letterClicked);
   };
 
-  const { definitions } = useGetDefinitions();
+  const { definitions } = useGetDefinitions(wordToGuess);
 
   const { currentItems, setItems } = useHint();
 
