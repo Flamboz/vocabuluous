@@ -1,20 +1,22 @@
 import { useEffect, useState } from "react";
-import getWordsFromLocalStorage from "../../../services/getWordsFromLocalStorage";
 
 const TOTAL_OF_INCORRECT_GUESSES = 7;
 
-const useHangmanGame = (onGameWon: () => void, onGameLost: () => void) => {
+const useHangmanGame = (
+  lettersArrayOfCurrentWord: string[],
+  onGameWon: () => void,
+  onGameLost: () => void,
+  updateWordIndex: () => void,
+  onNoWordsLeft: () => void
+) => {
   const [incorrectGuesses, setIncorrectGuesses] = useState(0);
-  const wordToGuess = getWordsFromLocalStorage();
 
-  const [guessedLetters, setGuessedLetters] = useState(
-    Array(wordToGuess.length).fill("")
-  );
+  const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
 
   const [isGameOver, setIsGameOver] = useState(false);
 
   const updateIncorrectGuessesOnLetterClick = (letterClicked: string) => {
-    if (!wordToGuess.includes(letterClicked)) {
+    if (!lettersArrayOfCurrentWord.includes(letterClicked)) {
       setIncorrectGuesses(incorrectGuesses + 1);
     }
   };
@@ -26,9 +28,16 @@ const useHangmanGame = (onGameWon: () => void, onGameLost: () => void) => {
   };
 
   const updateGuessedLetters = (letterClicked: string) => {
-    const updatedLetters = guessedLetters.map((letter, index) =>
-      wordToGuess[index] === letterClicked ? letterClicked : letter
-    );
+    const letters =
+      guessedLetters.length > 0
+        ? guessedLetters
+        : Array(lettersArrayOfCurrentWord.length).fill("");
+
+    const updatedLetters = letters.map((letter, index) => {
+      return lettersArrayOfCurrentWord[index] === letterClicked
+        ? letterClicked
+        : letter;
+    });
     setGuessedLetters(updatedLetters);
     updateIncorrectGuessesOnLetterClick(letterClicked);
   };
@@ -44,14 +53,32 @@ const useHangmanGame = (onGameWon: () => void, onGameLost: () => void) => {
 
   useEffect(() => {
     if (
-      !!wordToGuess.toString() &&
-      wordToGuess.toString() === guessedLetters.toString() &&
+      !!lettersArrayOfCurrentWord.toString() &&
+      lettersArrayOfCurrentWord.toString() === guessedLetters.toString() &&
       !isGameOver
     ) {
       onGameWon();
       setIsGameOver(true);
     }
-  }, [guessedLetters, wordToGuess, isGameOver, onGameWon]);
+  }, [guessedLetters, lettersArrayOfCurrentWord, isGameOver, onGameWon]);
+
+  const proceedToNextWord = () => {
+    onNoWordsLeft();
+
+    setGuessedLetters([]);
+    setIncorrectGuesses(0);
+    setIsGameOver(false);
+    updateWordIndex();
+
+    const buttons = document.querySelectorAll(
+      ".letter"
+    ) as NodeListOf<HTMLButtonElement>;
+
+    buttons.forEach((button) => {
+      button.classList.remove("correct", "incorrect");
+      button.disabled = false;
+    });
+  };
 
   return {
     incorrectGuesses,
@@ -59,6 +86,7 @@ const useHangmanGame = (onGameWon: () => void, onGameLost: () => void) => {
     updateGuessedLetters,
     updateIncorrectGuessesOnHintClick,
     isGameOver,
+    proceedToNextWord,
   };
 };
 

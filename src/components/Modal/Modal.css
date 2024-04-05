@@ -36,9 +36,8 @@
   margin-bottom: 20px;
 }
 
-.modal__buttons button {
+.modal__button {
   position: absolute;
-  top: 20px;
   font-size: 24px;
   background: none;
   border: none;
@@ -46,19 +45,28 @@
   z-index: 1;
 }
 
-.modal__buttons--home {
+.modal__button--home {
   display: flex;
   align-items: center;
+  top: 20px;
   left: 20px;
 }
 
-.modal__buttons--close {
+.modal__button--close {
+  top: 20px;
   right: 20px;
 }
 
-.modal__buttons-text {
+.modal__button-text {
   font-size: 16px;
   margin-left: 5px;
+}
+
+.modal__button--next-word {
+  display: flex;
+  align-items: center;
+  right: 20px;
+  bottom: 20px;
 }
 
 .modal__form {

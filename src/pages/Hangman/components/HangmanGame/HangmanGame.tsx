@@ -18,14 +18,20 @@ const HangmanGame = () => {
 
   const { isModalOpen, modalText, closeModal, openModal } = useModal();
 
-  const [wordToGuess, setWordToGuess] = useState<string | null>(null);
-
-  const wordToGuessLettersArray = wordToGuess?.split("");
+  const [words, setWords] = useState<string[]>([]);
+  const [currentWordIndex, setCurrentWordIndex] = useState<number>(0);
+  const [lettersArrayOfCurrentWord, setLettersArrayOfCurrentWord] = useState<
+    string[]
+  >([]);
 
   useEffect(() => {
-    const firstWordFromLocalStorage = getWordsFromLocalStorage();
-    setWordToGuess(firstWordFromLocalStorage);
+    const wordsFromLocalStorage = getWordsFromLocalStorage();
+    setWords(wordsFromLocalStorage);
   }, []);
+
+  useEffect(() => {
+    setLettersArrayOfCurrentWord(words[currentWordIndex]?.split("") ?? []);
+  }, [words, currentWordIndex]);
 
   const onGameWon = () => {
     openModal("you won :)");
@@ -35,15 +41,34 @@ const HangmanGame = () => {
     openModal("you lost :(");
   };
 
+  const onNoWordsLeft = () => {
+    if (isNoWordsLeft) {
+      openModal("No words left");
+    }
+  };
+
+  const updateWordIndex = () => {
+    setCurrentWordIndex(currentWordIndex + 1);
+  };
+
+  const isNoWordsLeft = currentWordIndex >= words.length - 1;
+
   const {
     incorrectGuesses,
     guessedLetters,
     updateGuessedLetters,
     updateIncorrectGuessesOnHintClick,
     isGameOver,
-  } = useHangmanGame(onGameWon, onGameLost);
+    proceedToNextWord,
+  } = useHangmanGame(
+    lettersArrayOfCurrentWord,
+    onGameWon,
+    onGameLost,
+    updateWordIndex,
+    onNoWordsLeft
+  );
 
-  const displayWord = wordToGuessLettersArray?.map((_, index) => (
+  const displayWord = lettersArrayOfCurrentWord?.map((_, index) => (
     <span key={index} className="guessing-word__char">
       {guessedLetters[index] || "_"}
     </span>
@@ -54,7 +79,7 @@ const HangmanGame = () => {
 
     button.disabled = true;
 
-    if (wordToGuessLettersArray?.includes(letterToCheck)) {
+    if (lettersArrayOfCurrentWord?.includes(letterToCheck)) {
       button.classList.add("correct");
     } else {
       button.classList.add("incorrect");
@@ -71,7 +96,7 @@ const HangmanGame = () => {
     updateGuessedLetters(letterClicked);
   };
 
-  const { definitions } = useGetDefinitions(wordToGuess);
+  const { definitions } = useGetDefinitions(words[currentWordIndex]);
 
   const { currentItems, setItems } = useHint();
 
@@ -108,10 +133,14 @@ const HangmanGame = () => {
             ></path>
           </g>
         </svg>
-        <span className="modal__buttons-text">Home</span>
+        <span className="button--home-text">Home</span>
       </button>
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
-        {modalText}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        proceedToNextWord={proceedToNextWord}
+      >
+        <p>{modalText}</p>
       </Modal>
     </>
   );
